@@ -10,7 +10,7 @@ print """\
   / __/__  ___ ___ _  __ _  ___ ____
  _\ \/ _ \/ _ `/  ' \/  ' \/ -_) __/
 /___/ .__/\_,_/_/_/_/_/_/_/\__/_/   
-   /_/  P4kL0nc4t Spammer (GRAB)
+   /_/  Mr.BIN Spammer (GRAB)
 """
 import requests
 import datetime
@@ -54,16 +54,16 @@ while True:
 		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Exiting . . .", "warn")
 		exit()
 	except requests.exceptions.ConnectionError:
-		print showstatus(wrapsbrace("except", True) + "ConnectionError thrown! Sleeping for 3s . . .", "warn")
-		sleep(3)
+		print showstatus(wrapsbrace("except", True) + "ConnectionError thrown! Sleeping for 0s . . .", "warn")
+		sleep(0)
 	else:
 		if r.status_code == 429:
-			print showstatus(wrapsbrace("429 {}".format(r.reason), True) + "Sleeping for 3s . . .", "warn")
-			sleep(3)
+			print showstatus(wrapsbrace("429 {}".format(r.reason), True) + "Sleeping for 0s . . .", "warn")
+			sleep(0)
 		elif r.status_code == 200:
-			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 3s . . . (iteration:{})".format(iteration))
+			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 0s . . . (iteration:{})".format(iteration))
 			iteration += 1
-			sleep(3)
+			sleep(0)
 		else:
 			print showstatus(wrapsbrace("{} {}".format(r.status_code, r.reason), True) + "Something went wrong. Exiting . . .", "warn")
 			exit()
