@@ -45,7 +45,7 @@ def sleep(x):
 		exit()
 
 _phone = args.phonenum
-iteration = 1
+iteration = 5
 print showstatus(wrapsbrace("info", True) + "Send GAC SMS to: {}".format(_phone))
 while True:
 	try:
