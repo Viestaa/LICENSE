@@ -55,10 +55,7 @@ while True:
 		exit()
 	
 	else:
-		elif r.status_code == 200:
-			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 1s . . . (iteration:{})".format(iteration))
-			iteration += 1
-			sleep(1)
+		
 		elif r.status_code == 200:
 			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 1s . . . (iteration:{})".format(iteration))
 			iteration += 1
