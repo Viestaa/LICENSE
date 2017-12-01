@@ -53,8 +53,7 @@ while True:
 	except KeyboardInterrupt:
 		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Exiting . . .", "warn")
 		exit()
-	except requests.exceptions.ConnectionError:
-		print showstatus(wrapsbrace("except", True) + "ConnectionError thrown! Sleeping for 1s . . .", "warn")
+	except r.print showstatus(wrapsbrace("except", True) + "KeyboardInterupt thrown! Sleeping for 1s . . .", "warn")
 		sleep(1)
 	else:
 		if r.status_code == 429:
