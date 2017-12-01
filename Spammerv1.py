@@ -53,13 +53,7 @@ while True:
 	except KeyboardInterrupt:
 		print "\r" + showstatus(wrapsbrace("except", True) + "KeyboardInterrupt thrown! Sleeping for 3s . . .", "warn")
 		sleep(3)
-	except requests.exceptions.ConnectionError:
-		print showstatus(wrapsbrace("except", True) + "ConnectionError thrown! Exiting . . .", "warn")
-		exit()
 	else:
-		if r.status_code == 429:
-			print showstatus(wrapsbrace("429 {}".format(r.reason), True) + "Sleeping for 3s . . .", "warn")
-			sleep(3)
 		elif r.status_code == 200:
 			print showstatus(wrapsbrace("200 OK", True) + "GAC SMS sent! Sleeping for 3s . . . (iteration:{})".format(iteration))
 			iteration += 1
